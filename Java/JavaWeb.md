@@ -22,5 +22,23 @@
 
 ### 5.2 HelloServlet
 
+#### 5.2.1编写Servlet的映射
 
+为什么需要映射，因为我们写的是Java程序，但是要通过浏览器访问，而浏览器需要连接web服务器，**所以我们需要在web服务中注册我们写的Servlet，还需要给他一个浏览器能够访问的路径**
 
+```xml
+<!--注册Servlet-->
+<servlet>
+	<servlet-name>hello</servlet-name>
+    <servlet-class>com.ywz.servlet.helloservlet</servlet-class>
+</servlet>
+<!--Servlet请求路径-->
+<servlet-mapping>
+	<servlet-name>hello</servlet-name>
+    <url-pattern>/hello</url-pattern>
+</servlet-mapping>
+```
+
+#### 5.2.2配置Tomcat
+
+### 5.3 Servlet运行原理
