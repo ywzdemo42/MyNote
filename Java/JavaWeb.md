@@ -102,3 +102,29 @@ public class ErrorServlet extends HttpServlet {
 5.优先级问题
 
 **指定了固有的映射路径优先级最高**，如果找不到则选择默认的处理请求
+
+### 5.5 ServletContext（上下文）
+
+web容器在启动的时候，它会为每个WEB程序都创建一个对应的ServletContext对象，它代表了当前的web应用；
+
+```java
+ServletContext servlerContext = this.getServletContext();
+```
+
+- **共享数据**   
+
+  我在这个servlet中保存的数据，可以在另外一个servlet中拿到；
+
+  1.Servlet参数设置
+
+  2.Servlet参数取出
+
+  
+
+- 
+
+
+
+
+
+ 
