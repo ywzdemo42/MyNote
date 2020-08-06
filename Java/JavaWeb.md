@@ -111,20 +111,90 @@ web容器在启动的时候，它会为每个WEB程序都创建一个对应的Se
 ServletContext servlerContext = this.getServletContext();
 ```
 
-- **共享数据**   
+#### 5.5.1**共享数据**   
 
-  我在这个servlet中保存的数据，可以在另外一个servlet中拿到；
+我在这个servlet中保存的数据，可以在另外一个servlet中拿到；
 
-  1.Servlet参数设置
+1.Servlet参数设置
 
-  2.Servlet参数取出
+2.Servlet参数取出
 
-  
+#### 5.5.2获取初始化参数
 
-- 
+```xml
+<!--配置一些web应用初始化参数-->
+<context-param>
+	<param-name>url</param-name>
+    <param-vlaue>jsbc:mysql://localhost:3306/mybatis</param-vlaue>
+</context-param>
+```
+
+#### 5.5.3请求转发
+
+```java
+//转发时浏览器路径不变
+context.getRequesrDispatcher('/gp').forward(res,req);
+```
+
+![image-20200806145556058](JavaWeb.assets/image-20200806145556058.png)
+
+#### 5.5.4 读取资源文件
+
+```properties
+username=ywz
+password=123
+```
+
+```java
+InputStream is = this.getServletContext().getResourceAsStream("/WEB-INF/classes/com/ywz/servlet/aa.properties");
+Properties prop = new Properties();
+prop.load(is);
+String user = prop.getProperty("username");
+String pwd = prop.getProperty("password");
+resp.getWriter().print(user + ":" + pwd);
+```
+
+### 5.6 HttpRequest
+
+
+
+### 5.7 HttpResponse
+
+响应：web服务器接收到客户端的http请求，针对这个请求，分别创建一个代表请求的HttpServletRequest对象，代表响应的一个HttpServletResponse；
+
+- 如果要获取客户端请求过来的参数：找HttpRequest
+- 如果要给客户一些响应信息：找HttpResponse
+
+1.简单分类
+
+负责向浏览器发送数据的方法
+
+- ```java
+  ServletOutputStream getOutputStream() throws IOException;
+  PrintWriter getWriter() throws IOException;
+  ```
+
+2.下载文件
+
+```java
+//1.要获取下载文件的路径
+
+//2.下载的文件名是什么？
+
+//3.设置想办法让浏览器能够支持下载我们需要的东西
+
+//4.获取下载文件的输入流
+
+//5.创建缓冲区
+
+//6.获取下载文件输出流（OutputStream）
+
+//7.将FileOutputStream流西融入到buffer缓冲区
+
+//8.使用OutputStream将缓冲区的数据输入到客户端
+```
 
 
 
 
 
- 
