@@ -156,7 +156,7 @@ resp.getWriter().print(user + ":" + pwd);
 
 ### 5.6 HttpRequest
 
-
+HttpServletRequest代表客户端的请求，用户通过Http协议访问服务器，Http请求中的所有信息会被封装到HttpServletRequest，通过这个HttpServletRequest的方法，获得客户端的所有信息
 
 ### 5.7 HttpResponse
 
@@ -165,7 +165,7 @@ resp.getWriter().print(user + ":" + pwd);
 - 如果要获取客户端请求过来的参数：找HttpRequest
 - 如果要给客户一些响应信息：找HttpResponse
 
-1.简单分类
+#### 5.7.1 简单分类
 
 负责向浏览器发送数据的方法
 
@@ -174,7 +174,7 @@ resp.getWriter().print(user + ":" + pwd);
   PrintWriter getWriter() throws IOException;
   ```
 
-2.下载文件
+#### 5.7.2 下载文件
 
 ```java
 protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -201,7 +201,32 @@ protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws Se
     }
 ```
 
+#### 5.7.3 实现重定向
 
+B一个web资源收到A客户端请求后，他会通知A客户端去访问另外一个web资源C，这个过程叫重定向
 
+![image-20200806145556058](JavaWeb.assets/image-20200806145556058.png)
 
+常见场景
 
+- 用户登录
+
+  ```java
+  void sendRedirect(String var1) throws IOException;
+  ```
+
+  测试
+
+  ```java
+  @Override
+  protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+      throws ServletException, IOException {
+      /* 重定向原理
+      	resp.setHeader("Location","/r/img");
+      	resp.setStatus("302");
+      */
+      resp.sendRedirect("/r/img");//重定向
+  }
+  ```
+
+  
