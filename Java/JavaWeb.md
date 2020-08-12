@@ -1,4 +1,4 @@
-# JavaWeb
+# ![]()JavaWeb
 
 ## 01.Tomcat 详解
 
@@ -230,3 +230,66 @@ B一个web资源收到A客户端请求后，他会通知A客户端去访问另�
   ```
 
   
+
+## 06.Cookie、Session
+
+### 6.1会话
+
+**会话**：用户打开了一个浏览器，点击了很多超链接，访问多个web资源，关闭浏览器，这个过程可以称之为会话
+
+**有状态会话**：记录游客状态的会话，称之为有状态会话
+
+### 6.2 保存会话的两种技术
+
+**cookie**
+
+- 客户端技术（响应、请求）
+
+**session**
+
+- 服务器技术，利用这个技术，可以保存用户的会话信息
+
+### 6.3 Cookie
+
+1.从请求中拿到cookie的信息
+
+2.服务器响应给客户端cookie
+
+```java
+Cookie[] cookie = req.getCookie();//获得Cookie
+Cookie.getName();//获得cookie的key
+Cookie.getValue();//获得cookie的value
+new Cookie(key,value);//新建一个Cookie
+cookie.setMaxAge(time);//设置cookie的有效期
+resp.addCookie(cookie);//响应给客户端一个cookie
+```
+
+cookie一般会保存在本地的用户目录下appdata;
+
+## 07.Session（重点）
+
+什么是session：
+
+- 服务器会给每一个用户（浏览器）创建一个Session对象；
+- 一个session独占一个浏览器，只要浏览器没关闭，Session就存在；
+- 用户登入之后，整个网站它都可以访问；
+
+Cookie和Session的区别
+
+| 区别 | Cookie                                               | Session                                                      |
+| ---- | ---------------------------------------------------- | ------------------------------------------------------------ |
+|      | 用户数据写给用户的浏览器，浏览器保存（可以保存多个） | 把用户信息写到用户独占Session中，服务器保存（保存重要信息，避免服务器浪费） |
+
+```java
+HttpSession session = req.getSession();//得到session
+session.invalidate();//session失效
+```
+
+```xml
+<!-- 会话自动过期-->
+<session-config>
+	<session-timeout>15</session-timeout>
+</session-config>
+```
+
+![image-20200813010358770](JavaWeb.assets/image-20200813010358770.png)
