@@ -293,3 +293,126 @@ session.invalidate();//session失效
 ```
 
 ![image-20200813010358770](JavaWeb.assets/image-20200813010358770.png)
+
+## 08. JSP
+
+### 8.1 什么是JSP
+
+java Server Pages：Java服务器端页面，也和Servlet一样，用于动态Web技术！
+
+最大的特点：
+
+- 写JSP就像在写HTML
+- 区别：1.HTML只给用户提供静态数据 2.JSP页面中可以嵌入JAVA代码，为用户提供动态数据
+
+### 8.2 JSP原理
+
+思路：JSP到底怎么执行！
+
+- 代码层面没有问题
+
+- 服务器内部工作
+
+  Tomcat中有一个work目录；
+
+  IDEA中使用Tomcat的会在IDEA的tomcat中生产一个work目录
+
+  ```java
+  /*C:\Users\ywz\AppData\Local\JetBrains\IntelliJIdea2020.1\tomcat (IDEA的tomcat工作空间)
+  *发现了页面变成java程序
+  *index_jsp.class
+  *index_jsp.java
+  *浏览器向服务器发送请求，不管访问什么资源，其实都是在访问servlet！
+  *JSP最终也会被转换成一个java类
+  *JSP本质上就是一个Servlet
+  */
+  //初始化
+  public void _jspInit(){}
+  //销毁
+  public void _jspDestroy(){}
+  //服务
+  public void _jspService(HttpServletRequest req,HttpServletResponse resp){}
+  
+  ```
+
+1.判断请求
+
+2.内置一些对象
+
+```java
+final javax.servlet.jsp.PageContext pageContext;				//页面上下文
+javax.servlet.http.HttpSession session = null;					//session
+final javax.servlet.ServletContext application;					//applicationContext
+final javax.servlet.ServletConfig config;						//config
+javax.servlet.jsp.JspWriter out = null;							//out
+final java.lang.Object page = this;								//page 当前页
+javax.servlet.jsp.JspWriter _jspx_out = null;
+javax.servlet.jsp.PageContext _jspx_page_context = null;
+HttpServletRequest request                                      //请求
+HttpServletResponse response     								//响应
+```
+
+3.输出页面前增加的代码
+
+```java
+response.setContentType("text/html; charset=UTF-8");                  //设置响应的页面类型
+pageContext = _jspxFactory.getPageContext(this, request, response,
+                                          null, true, 8192, true);
+_jspx_page_context = pageContext;
+application = pageContext.getServletContext();
+config = pageContext.getServletConfig();
+session = pageContext.getSession();
+out = pageContext.getOut();
+_jspx_out = out;
+```
+
+4.以上的这些对象我们可以在jsp中直接使用
+
+![image-20200818144904197](JavaWeb.assets/image-20200818144904197.png)
+
+在JSP页面中：
+
+只要是JAVA代码就会原封不动的输出；
+
+如果是HTML代码就会被转换为**out.write("<html>\r\n");**这样的格式输出到前端
+
+### 8.3 JSP基本语法
+
+### 8.4 JSP指令
+
+### 8.5 9大内置对象
+
+- PageContext  //保存的数据只在一个页面有效
+- Request   //保存的数据只在一个请求有效
+- Response
+- Session  //保存的数据只在一个会话有效，打开浏览器到关闭浏览器
+- Application【ServletContext】 //保存的数据只在服务器有效，打开服务器到关闭服务器
+- config【ServletConfig】
+- out
+- page
+- excepetion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
