@@ -1,4 +1,4 @@
-# ![]()JavaWeb
+# JavaWeb
 
 ## 01.Tomcat 详解
 
@@ -378,19 +378,25 @@ _jspx_out = out;
 
 ### 8.3 JSP基本语法
 
+
+
 ### 8.4 JSP指令
 
 ### 8.5 9大内置对象
 
 - PageContext  //保存的数据只在一个页面有效
-- Request   //保存的数据只在一个请求有效
+- Request   //保存的数据只在一个请求有效,**用户用完就不用了例如 查看网页内容**
 - Response
-- Session  //保存的数据只在一个会话有效，打开浏览器到关闭浏览器
-- Application【ServletContext】 //保存的数据只在服务器有效，打开服务器到关闭服务器
+- Session  //保存的数据只在一个会话有效，打开浏览器到关闭浏览器，**用户用完还会用例如购物车**
+- Application【ServletContext】 //保存的数据只在服务器有效，打开服务器到关闭服务器，**一个用户用完了其他用户还要用，聊天数据，网站统计人数**
 - config【ServletConfig】
 - out
 - page
 - excepetion
+
+查找顺序是从底层到高层，page -> request -> session -> application
+
+###  8.6  JSP标签，JSTL标签，EL表达式
 
 
 
