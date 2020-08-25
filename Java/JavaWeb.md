@@ -398,9 +398,39 @@ _jspx_out = out;
 
 ###  8.6  JSP标签，JSTL标签，EL表达式
 
+**EL表达式**: ${} 
 
+**JSP标签**
 
+```jsp
+<%--jsp:include--%>
 
+<jsp:forward page="/jsptag2.jsp">
+    <jsp:param name='name' value='kuang'></jsp:param>
+</jsp:forward>
+```
+
+**JSTL**
+
+JSTL的标签库的使用是为了弥补HTML标签的不足；它自定义许多标签，可以让我们使用java代码。
+
+##  09.JAVABEAN
+
+JavaBean有特定的写法：
+
+- 必须要有一个无参构造
+- 属性必须私有化
+- 必须有对应的get/set的方法
+
+一般用来和数据库的字段做映射 ORM：
+
+ORM：对象关系映射
+
+- 表-> 类
+- 字段 -> 属性
+- 行记录 -> 对象
+
+## 10.MVC三层架构
 
 
 
