@@ -432,17 +432,50 @@ ORM：对象关系映射
 
 ## 10.MVC三层架构
 
+## 11.过滤器 Filter
+
+Filter：过滤器 用来过滤网站的数据；
+
+- 处理中文乱码
+- 过滤网站消息
+
+![image-20200826174304332](JavaWeb.assets/image-20200826174304332.png)
+
+Filter开发步骤：
+
+1.导包
+
+2.编写过滤器
+
+![image-20200826175338579](JavaWeb.assets/image-20200826175338579.png)
+
+//init 初始化
+
+//过滤器业务
+
+```java
+public void doFilter(ServletRequest req,ServletResponse resp,FilterChain chain){
+    chain.doFilter(req,resp);
+    //请求放行，不写则终止请求
+}
+```
 
 
 
+//destroy 销毁
 
+3.在web.xml中配置Filter过滤器
 
-
-
-
-
-
-
+```xml
+<filter>
+	<filter-name>CharacterEncodingFilter</filter-name>
+    <filter-class>com.kuang.filter.CharacterEncodingFilter</filter-class>
+</filter>
+<filter-mapping>
+	<filter-name>CharacterEncodingFilter</filter-name>
+    <url-pattern>/servlet/*</url-pattern>
+</filter-mapping>
+```
 
 
 
