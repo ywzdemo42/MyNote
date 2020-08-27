@@ -477,7 +477,55 @@ public void doFilter(ServletRequest req,ServletResponse resp,FilterChain chain){
 </filter-mapping>
 ```
 
+## 12.JDBC
 
+1.导入依赖
+
+2.IDEA中连接数据库
+
+![image-20200827160316828](JavaWeb.assets/image-20200827160316828.png)
+
+3.JDBC固定步骤：
+
+```java
+//1加载驱动
+Class.forName("com.mysql.jdbc.Driver");
+//2连接数据库，代表数据库
+Connection connection = DriverManager.getConnection(url,username,password);
+//3向数据库发送SQL的对象Statement/PreparedStatment
+Statment statment = connection.createStatement();
+//4编写SQL（根据业务，不同的SQL）
+String sql = "select * from tableName where id = ?";
+//5执行SQL
+PrepareStatement prepareStatement = connection.prepareStatement(sql);
+prepareStatement.setInt(1,1);//给第1个占位符？的值为1
+
+
+ResultSet rs = statement.executeQuery(sql);
+while(rs.next()){
+    System.out.println("...");
+}
+//6关闭连接
+rs.close();
+statement.close();
+connection.close();
+```
+
+4.事务
+
+要么都成功，要么都失败！
+
+ACID原则：保证数据的安全
+
+```java
+//1.开启事务
+connection.setAutoCommit(false);
+//2.事务提交
+commit()
+//3.事务回滚
+rollback()
+//4.关闭事务
+```
 
 
 
