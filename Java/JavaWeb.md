@@ -513,8 +513,6 @@ connection.close();
 
 4.事务
 
-要么都成功，要么都失败！
-
 ACID原则：保证数据的安全
 
 ```java
@@ -525,6 +523,70 @@ commit()
 //3.事务回滚
 rollback()
 //4.关闭事务
+```
+
+## 13.实现邮件发送
+
+原理：
+
+![image-20200903171349967](JavaWeb.assets/image-20200903171349967.png)
+
+maven包：
+
+```xml
+<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+<dependency>
+    <groupId>javax.mail</groupId>
+    <artifactId>mail</artifactId>
+    <version>1.5.0-b01</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/javax.activation/activation -->
+<dependency>
+    <groupId>javax.activation</groupId>
+    <artifactId>activation</artifactId>
+    <version>1.1.1</version>
+</dependency>
+
+```
+
+```java
+public class MailDemo01 {
+    public static void main(String[] args) throws Exception{
+        Properties prop = new Properties();
+        prop.setProperty("mail.host","smtp.qq.com"); //设置QQ邮件服务器
+        prop.setProperty("mail.transport.protocol","smtp");//邮件发送协议
+        prop.setProperty("mail.smtp.auth","true");//需要验证用户名密码
+
+        //【QQ才有】关于qq邮箱，还要设置SSL加密，加上一下代码
+        MailSSLSocketFactory sf = new MailSSLSocketFactory();
+        sf.setTrustAllHosts(true);
+        prop.put("mail.smtp.ssl.enable","true");
+        prop.put("mail.smtp.ssl.socketFactory",sf);
+
+        //使用JavaMail发送邮件的5个步骤
+        //1.创建定义整个应用程序所需的环境信息的Session对象
+
+        //【QQ才有】创建定义整个程序的Session对象
+        Session session = Session.getDefaultInstance(prop, new Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication("408083094@qq.com","授权码");
+            }
+        });
+        //2.通过Session得到transport对象
+        Transport ts = session.getTransport();
+        //3.使用邮箱的用户名和授权码连上邮件服务器
+        ts.connect("smtp.qq.com","408083094@qq.com","授权码");
+        //4.创建邮件
+        //注意需要传递session
+        MimeMessage message = new MimeMessage(session);
+        message.setSubject("测试邮件");//邮件主题
+        message.setFrom(new InternetAddress("408083094@qq.com")); //设置邮件地址
+
+
+        //5.发送
+        ts.sendMessage();
+    }
+}
 ```
 
 
